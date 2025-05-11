@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <!-- Hello to anyone who sees this <3 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STU Sources</title>
+    <link rel="icon" href="https://media4.giphy.com/media/SP3eWzz1O8vkcbklVq/giphy.gif?cid=6c09b952fnbhogql7pjeicsgplbouagczhuxbzk4at7fctmn&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="https://media4.giphy.com/media/SP3eWzz1O8vkcbklVq/giphy.gif?cid=6c09b952fnbhogql7pjeicsgplbouagczhuxbzk4at7fctmn&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s" alt="Logo" class="logo">
+    </div>
+    <div class="container" id="contentContainer">
+        <h1>STU Sources</h1>
+        <p>Drag the bookmarklets below to your bookmarks bar.</p>
+        <div class="button-wrapper">
+        <!-- HTML -->
+        <a href="javascript:(function(){
+            var blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = document.title + '.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        })();">Yoink HTML</a>
+        <!-- CSS -->
+        <a href="javascript:(function(){
+            var links = document.querySelectorAll('link[rel=stylesheet]');
+            var cssFiles = [];
+
+            links.forEach(function(link, index) {
+                cssFiles.push({index: index, url: link.href});
+            });
+
+            var promises = cssFiles.map(function(cssFile) {
+                return fetch(cssFile.url)
+                    .then(function(response) {
+                        return response.blob();
+                    })
+                    .then(function(blob) {
+                        var a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        a.download = 'style-' + cssFile.index + '.css';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    });
+            });
+
+            Promise.all(promises).then(function() {
+                var noteContent = cssFiles.map(function(cssFile) {
+                    var filename = cssFile.url.split('/').pop();
+                    return 'style-' + cssFile.index + '.css = ' + filename;
+                }).join('\n');
+
+                var noteBlob = new Blob([noteContent], {type: 'text/plain'});
+                var noteA = document.createElement('a');
+                noteA.href = URL.createObjectURL(noteBlob);
+                noteA.download = 'stylecss.txt';
+                document.body.appendChild(noteA);
+                noteA.click();
+                document.body.removeChild(noteA);
+            }).catch(function(error) {
+                console.error('Error fetching CSS:', error);
+            });
+        })();">Yoink CSS</a>
+        <!-- Images -->
+        <a href="javascript:(function(){
+            var images = document.querySelectorAll('img');
+            var imgFiles = [];
+
+            images.forEach(function(img, index) {
+                imgFiles.push({index: index, url: img.src});
+            });
+
+            var imgPromises = imgFiles.map(function(imgFile) {
+                return fetch(imgFile.url)
+                    .then(function(response) {
+                        return response.blob();
+                    })
+                    .then(function(blob) {
+                        var a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        a.download = 'image-' + imgFile.index + '.png';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    });
+            });
+
+            Promise.all(imgPromises).then(function() {
+                var noteContent = imgFiles.map(function(imgFile) {
+                    var filename = imgFile.url.split('/').pop();
+                    return 'image-' + imgFile.index + '.png = ' + filename;
+                }).join('\n');
+
+                var noteBlob = new Blob([noteContent], {type: 'text/plain'});
+                var noteA = document.createElement('a');
+                noteA.href = URL.createObjectURL(noteBlob);
+                noteA.download = 'imagenames.txt';
+                document.body.appendChild(noteA);
+                noteA.click();
+                document.body.removeChild(noteA);
+            }).catch(function(error) {
+                console.error('Error fetching images:', error);
+            });
+        })();">Yoink PNG</a>
+        <!--Text-->
+        <a href="javascript:(function(){
+            var text = document.body.innerText;
+            var blob = new Blob([text], {type: 'text/plain'});
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'page-text.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            })();">Yoink TXT</a>
+        <!--Inline css-->
+        <a href="javascript:(function(){
+          var styles = Array.from(document.querySelectorAll('style')).map(s => s.innerText).join('\n\n');
+          var blob = new Blob([styles], {type: 'text/css'});
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'inline-styles.css';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          })();">Yoink Inline CSS</a>
+        <!--Scripts-->
+        <a href="javascript:(function(){
+          var scripts = Array.from(document.querySelectorAll('script[src]')).map(s => s.src).join('\n');
+          var blob = new Blob([scripts], {type: 'text/plain'});
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'scripts.txt';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          })();">Yoink .JS</a>
+        <!--Yoink Meta Info-->
+        <a href="javascript:(function(){
+          var metas = Array.from(document.querySelectorAll('meta')).map(m => m.outerHTML).join('\n');
+          var blob = new Blob([metas], {type: 'text/html'});
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'meta-info.html';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          })();">Yoink Meta</a>
+        <!--Yoink links-->
+        <a href="javascript:(function(){
+          var links = Array.from(document.querySelectorAll('a[href]')).map(a => a.href);
+          var blob = new Blob([links.join('\n')], {type: 'text/plain'});
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'all-links.txt';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+            })();">Yoink Links</a>
+
+
+        </div>
+
+    </div>
+</body>
+</html>
