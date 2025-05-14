@@ -6,6 +6,7 @@
     <title>STU Sources</title>
     <link rel="icon" href="https://media4.giphy.com/media/SP3eWzz1O8vkcbklVq/giphy.gif?cid=6c09b952fnbhogql7pjeicsgplbouagczhuxbzk4at7fctmn&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s">
     <link rel="stylesheet" href="style.css">
+    <script src="pdf.js"></script>
 </head>
 <body>
     <div class="logo-container">
@@ -162,6 +163,14 @@
           a.click();
           document.body.removeChild(a);
             })();">Yoink Links</a>
+        <!--Yoink Videos-->
+            <a href="javascript:(function(){let vids=[...document.querySelectorAll('video,source')].map(v=>v.src).filter(Boolean);vids=[...new Set(vids)];if(vids.length===0)alert('No video URLs found!');vids.forEach(url=>window.open(url,'_blank'));})();">Yoink Video URLs</a>
+        <!--Yoink Audio-->
+         <a href="javascript:(function(){let audios=[...document.querySelectorAll('audio,source')].map(a=>a.src).filter(Boolean);audios=[...new Set(audios)];if(audios.length===0)alert('No audio URLs found!');audios.forEach(url=>window.open(url,'_blank'));})();">Yoink Audio URLs</a>
+        <!--Yoink Secured/ViewOnly PDF-->
+
+
+
 
 
         </div>
