@@ -5,7 +5,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background: url("https://cdn.discordapp.com/attachments/979771657185034250/1371056598260383896/output-onlinegiftools_1.gif?ex=6821bf76&is=68206df6&hm=2b81484469dcb0f529900afc194a6db4e623f951a83b6bc7a7ba77069f83f64c&");
+    background: url("background.gif");
     background-size: cover;
     overflow: hidden;
 }
@@ -18,15 +18,17 @@ body {
 
 .logo-container {
     position: absolute;
-    top: 10%;
     left: 50%;
+    top: 10%;
     transform: translateX(-50%);
+    pointer-events: none;
 }
 
 .logo {
-    max-width: 150px;
+    width: 150px;
     margin-top: 120px;
 }
+
 
 
 .container {
@@ -80,3 +82,18 @@ a:hover {
     flex: 1 1 200px;
     max-width: 200px;
 }
+
+@media (max-width: 1024px) {
+    .logo {
+        width: 120px;
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo {
+        width: 100px;
+        margin-top: 80px;
+    }
+}
+
